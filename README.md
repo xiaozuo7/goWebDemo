@@ -1,2 +1,2 @@
 # goWebDemo
-基于golang的web后端demo练习
+基于gin的web后端demo练习
