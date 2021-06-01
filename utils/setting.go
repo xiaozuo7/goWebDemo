@@ -16,8 +16,8 @@ var (
 	DbUser          string
 	DbPassWord      string
 	DbName          string
-	MaxIdleTime     time.Duration
 	MaxOpenConns    int
+	MaxIdleTime     time.Duration
 	ConnMaxLifetime time.Duration
 
 	AccessKey  string
@@ -49,8 +49,8 @@ func LoadDb(file *ini.File) {
 	DbUser = file.Section("database").Key("DbUser").MustString("root")
 	DbPassWord = file.Section("database").Key("DbPassWord").MustString("xz")
 	DbName = file.Section("database").Key("DbName").MustString("goWebDemo")
-	MaxIdleTime = file.Section("database").Key("MaxIdleTime").MustDuration(10)
 	MaxOpenConns = file.Section("database").Key("MaxOpenConns").MustInt(100)
+	MaxIdleTime = file.Section("database").Key("MaxIdleTime").MustDuration(10)
 	ConnMaxLifetime = file.Section("database").Key("ConnMaxLifetime").MustDuration(10 * time.Second)
 
 }

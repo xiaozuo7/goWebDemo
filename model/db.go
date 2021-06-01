@@ -39,7 +39,7 @@ func InitDb() {
 	}
 
 	// 迁移数据表
-	//_ db.AutoMigrate()
+	//_ =  db.AutoMigrate(&User{})
 
 	sqlDB, _ := db.DB()
 	// 设置连接池中的最大闲置连接数
