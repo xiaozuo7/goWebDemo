@@ -25,6 +25,7 @@ var codeMsg = map[int]string{
 	ErrorUserNameExists: "用户名已存在",
 	ErrorUserNotExists: "用户不存在",
 	ErrorPasswordInvalid: "密码错误",
+	ErrorPermissionDenied: "没有权限登录",
 }
 
 func GetErrMsg(code int) string {

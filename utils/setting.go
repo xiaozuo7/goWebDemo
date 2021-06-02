@@ -20,6 +20,16 @@ var (
 	MaxIdleTime     time.Duration
 	ConnMaxLifetime time.Duration
 
+	RedisHost          string
+	RedisPort          string
+	RedisAuth          string
+	RedisDb            int
+	MaxIdle            int
+	MaxActive          int
+	IdleTimeout        time.Duration
+	ConnFailRetryTimes int
+	ReConnectInterval  time.Duration
+
 	AccessKey  string
 	SecretKey  string
 	Bucket     string
@@ -27,19 +37,21 @@ var (
 )
 
 func init() {
-	file, err := ini.Load("config/config.ini")
+	// go test时需要用绝对路径F:\project\goWebDemo\config.ini
+	file, err := ini.Load("config.ini")
 	if err != nil {
 		fmt.Println("配置文件读取出错,请检查文件路径是否正确", err)
 	}
 	LoadServer(file)
 	LoadDb(file)
+	LoadRedis(file)
 	LoadQiNiu(file)
 }
 
 func LoadServer(file *ini.File) {
 	AppMode = file.Section("server").Key("AppMode").MustString("debug")
 	HttpPort = file.Section("server").Key("HttpPort").MustString(":3000")
-	JwtKey = file.Section("server").Key("JwtKey").MustString("ldjskjdwdq213sjnk")
+	JwtKey = file.Section("server").Key("JwtKey").MustString("29js10js")
 
 }
 
@@ -52,6 +64,19 @@ func LoadDb(file *ini.File) {
 	MaxOpenConns = file.Section("database").Key("MaxOpenConns").MustInt(100)
 	MaxIdleTime = file.Section("database").Key("MaxIdleTime").MustDuration(10)
 	ConnMaxLifetime = file.Section("database").Key("ConnMaxLifetime").MustDuration(10 * time.Second)
+
+}
+
+func LoadRedis(file *ini.File) {
+	RedisHost = file.Section("redis").Key("RedisHost").MustString("127.0.0.1")
+	RedisPort = file.Section("redis").Key("RedisPort").MustString("6379")
+	RedisAuth = file.Section("redis").Key("RedisAuth").MustString("")
+	RedisDb = file.Section("redis").Key("RedisDb").MustInt(1)
+	MaxIdle = file.Section("redis").Key("MaxIdle").MustInt(10)
+	MaxActive = file.Section("redis").Key("MaxActive").MustInt(1000)
+	IdleTimeout = file.Section("redis").Key("IdleTimeout").MustDuration(60 * time.Second)
+	ConnFailRetryTimes = file.Section("redis").Key("ConnFailRetryTimes").MustInt(3)
+	ReConnectInterval = file.Section("redis").Key("ReConnectInterval").MustDuration(1)
 
 }
 

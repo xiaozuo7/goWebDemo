@@ -17,7 +17,6 @@ func InitRouter() {
 
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
-
 	router := r.Group("api/v1")
 	{
 		router.POST("/login", v1.Login)
