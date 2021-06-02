@@ -12,3 +12,4 @@
 9. rabbitmq
 10. etcd
 11. worker
+12. bcrypt(√) --密码加密
