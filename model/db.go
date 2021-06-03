@@ -43,7 +43,7 @@ func InitDb() {
 
 	sqlDB, _ := db.DB()
 	// 设置连接池中的最大闲置连接数
-	sqlDB.SetConnMaxIdleTime(utils.MaxIdleTime)
+	sqlDB.SetMaxIdleConns(utils.MaxIdleConns)
 
 	// 设置数据库的最大连接数量
 	sqlDB.SetMaxOpenConns(utils.MaxOpenConns)

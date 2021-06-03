@@ -16,19 +16,19 @@ var (
 	DbUser          string
 	DbPassWord      string
 	DbName          string
-	MaxOpenConns    int
-	MaxIdleTime     time.Duration
-	ConnMaxLifetime time.Duration
+	MaxOpenConns    int           // 设置数据库的最大连接数量
+	MaxIdleConns    int           // 设置连接池中的最大闲置连接数
+	ConnMaxLifetime time.Duration // 设置连接的最大可复用时间
 
 	RedisHost          string
 	RedisPort          string
 	RedisAuth          string
 	RedisDb            int
-	MaxIdle            int
-	MaxActive          int
-	IdleTimeout        time.Duration
-	ConnFailRetryTimes int
-	ReConnectInterval  time.Duration
+	MaxIdle            int           // 最大空闲数
+	MaxActive          int           // 最大活跃数
+	IdleTimeout        time.Duration // 最大的空闲连接等待时间，超过此时间后，空闲连接将被关闭
+	ConnFailRetryTimes int           // 从连接池获取连接失败，最大重试次数
+	ReConnectInterval  time.Duration // 从连接池获取连接失败，每次重试之间间隔的秒数
 
 	AccessKey string
 	SecretKey string
@@ -61,8 +61,8 @@ func LoadDb(file *ini.File) {
 	DbUser = file.Section("database").Key("DbUser").MustString("root")
 	DbPassWord = file.Section("database").Key("DbPassWord").MustString("xz")
 	DbName = file.Section("database").Key("DbName").MustString("goWebDemo")
-	MaxOpenConns = file.Section("database").Key("MaxOpenConns").MustInt(100)
-	MaxIdleTime = file.Section("database").Key("MaxIdleTime").MustDuration(10)
+	MaxOpenConns = file.Section("database").Key("MaxOpenConns").MustInt(128)
+	MaxIdleConns = file.Section("database").Key("MaxIdleConns").MustInt(10)
 	ConnMaxLifetime = file.Section("database").Key("ConnMaxLifetime").MustDuration(10 * time.Second)
 
 }
