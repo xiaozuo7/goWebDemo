@@ -12,7 +12,7 @@ import (
 var AccessKey = utils.AccessKey
 var SecretKey = utils.SecretKey
 var Bucket = utils.Bucket
-var ImgUrl = utils.QiniuSever
+var ImgUrl = utils.EndPoint
 
 func UpLoadFile(file multipart.File, filSize int64) (string, int) {
 	putPolicy := storage.PutPolicy{

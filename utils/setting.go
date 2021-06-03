@@ -30,10 +30,10 @@ var (
 	ConnFailRetryTimes int
 	ReConnectInterval  time.Duration
 
-	AccessKey  string
-	SecretKey  string
-	Bucket     string
-	QiniuSever string
+	AccessKey string
+	SecretKey string
+	Bucket    string
+	EndPoint  string
 )
 
 func init() {
@@ -84,6 +84,6 @@ func LoadQiNiu(file *ini.File) {
 	AccessKey = file.Section("qiniu").Key("AccessKey").String()
 	SecretKey = file.Section("qiniu").Key("SecretKey").String()
 	Bucket = file.Section("qiniu").Key("Bucket").String()
-	QiniuSever = file.Section("qiniu").Key("QiniuSever").String()
+	EndPoint = file.Section("qiniu").Key("EndPoint").String()
 
 }
