@@ -24,10 +24,10 @@ type MyClaims struct {
 }
 
 var (
-	TokenExpired     = errors.New("Token过期，请重新登录")
-	TokenNotValidYet = errors.New("Token无效，请重新登录")
-	TokenMalformed   = errors.New("Token不正确，请重新登录")
-	TokenInvalid     = errors.New("请传入一个正确的Token")
+	TokenExpired     = errors.New("token过期，请重新登录")
+	TokenNotValidYet = errors.New("token无效，请重新登录")
+	TokenMalformed   = errors.New("token不正确，请重新登录")
+	TokenInvalid     = errors.New("请传入一个正确的token")
 )
 
 // CreateToken 生成Token
