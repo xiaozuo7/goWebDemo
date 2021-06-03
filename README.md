@@ -13,3 +13,5 @@
 10. etcd
 11. worker
 12. bcrypt(√) --密码加密
+13. upload(√) --文件上传(接入的七牛云SDK)
+14. es
