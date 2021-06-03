@@ -14,13 +14,13 @@ func InitRouter() {
 	r.Use(gin.Recovery())
 	r.Use(middleware.Cors())
 
-
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
 	router := r.Group("api/v1")
 	{
 		router.POST("/login", v1.Login)
 		router.POST("/user/add", v1.AddUser)
+		router.POST("/upload", v1.Upload)
 	}
 
 	_ = r.Run(utils.HttpPort)
