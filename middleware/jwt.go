@@ -105,9 +105,10 @@ func JwtToken() gin.HandlerFunc {
 		claims, err := j.ParseToken(checkToken[1])
 		if err != nil {
 			if err == TokenExpired {
+				code = errmsg.ErrorTokenExpired
 				c.JSON(http.StatusOK, gin.H{
 					"status":  errmsg.Error,
-					"message": TokenExpired,
+					"message": errmsg.GetErrMsg(code),
 					"data":    nil,
 				})
 				c.Abort()

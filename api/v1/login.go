@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"goWebDemo/middleware"
 	"goWebDemo/model"
+	"goWebDemo/service"
 	"goWebDemo/utils/errmsg"
 	"net/http"
 	"time"
@@ -16,7 +17,7 @@ func Login(c *gin.Context) {
 	var token string
 	var code int
 
-	formData, code = model.CheckLogin(formData.Username, formData.Password)
+	formData, code = service.CheckLogin(formData.Username, formData.Password)
 	if code == errmsg.Success {
 		generateToken(c, formData)
 	} else {

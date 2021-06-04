@@ -16,11 +16,22 @@ func InitRouter() {
 
 	auth := r.Group("api/v1")
 	auth.Use(middleware.JwtToken())
+	{
+		auth.PUT("/user/:id", v1.EditUser)
+		auth.DELETE("/user/:id", v1.DeleteUser)
+		auth.PUT("/user/changepswd/:id", v1.ChangePassword)
+
+	}
 	router := r.Group("api/v1")
 	{
 		router.POST("/login", v1.Login)
-		router.POST("/user/add", v1.AddUser)
 		router.POST("/upload", v1.Upload)
+		router.GET("/user/:id", v1.GetUser)
+		router.GET("/users", v1.GetUserList)
+		router.POST("/user/add", v1.AddUser)
+
+
+
 	}
 
 	_ = r.Run(utils.HttpPort)
