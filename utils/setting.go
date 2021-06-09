@@ -34,6 +34,9 @@ var (
 	SecretKey string
 	Bucket    string
 	EndPoint  string
+
+	Broker string
+	ResultBackend string
 )
 
 func init() {
@@ -46,6 +49,7 @@ func init() {
 	LoadDb(file)
 	LoadRedis(file)
 	LoadQiNiu(file)
+	LoadMachinery(file)
 }
 
 func LoadServer(file *ini.File) {
@@ -86,4 +90,9 @@ func LoadQiNiu(file *ini.File) {
 	Bucket = file.Section("qiniu").Key("Bucket").String()
 	EndPoint = file.Section("qiniu").Key("EndPoint").String()
 
+}
+
+func LoadMachinery(file *ini.File) {
+	Broker = file.Section("machinery").Key("Broker").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
+	ResultBackend = file.Section("machinery").Key("ResultBackend").MustString("redis://localhost:6379/15")
 }
