@@ -13,6 +13,7 @@ var cnf = &config.Config{
 	Broker:        utils.Broker,
 	DefaultQueue:  "machinery_tasks",
 	ResultBackend: utils.ResultBackend,
+	Lock:          utils.Lock,
 	AMQP: &config.AMQPConfig{
 		Exchange:     "machinery_exchange",
 		ExchangeType: "direct",
