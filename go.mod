@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/RichardKnop/machinery/v2 v2.0.11
+	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.2
@@ -23,9 +24,11 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/qiniu/go-sdk/v7 v7.9.6
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/ugorji/go v1.2.6 // indirect
+	github.com/urfave/cli v1.22.5 // indirect
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
 	golang.org/x/sys v0.0.0-20210601080250-7ecdf8ef093b // indirect
 	golang.org/x/text v0.3.6 // indirect

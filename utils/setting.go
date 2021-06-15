@@ -37,7 +37,6 @@ var (
 
 	Broker        string
 	ResultBackend string
-	Lock          string
 )
 
 func init() {
@@ -95,7 +94,6 @@ func LoadQiNiu(file *ini.File) {
 
 func LoadMachinery(file *ini.File) {
 	Broker = file.Section("machinery").Key("Broker").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
-	ResultBackend = file.Section("machinery").Key("ResultBackend").MustString("redis://localhost:6379/15")
-	Lock = file.Section("machinery").Key("Lock").MustString("redis://localhost:6379/14")
+	ResultBackend = file.Section("machinery").Key("ResultBackend").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
 
 }
