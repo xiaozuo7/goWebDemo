@@ -12,7 +12,7 @@ import (
 	"github.com/RichardKnop/machinery/v2/tasks"
 	"github.com/google/uuid"
 	"github.com/opentracing/opentracing-go"
-	opentracing_log "github.com/opentracing/opentracing-go/log"
+	opentracinglog "github.com/opentracing/opentracing-go/log"
 	"github.com/urfave/cli"
 	"goWebDemo/utils"
 	"goWebDemo/utils/machinery/exampletasks"
@@ -165,7 +165,7 @@ func send() error {
 
 	batchID := uuid.New().String()
 	span.SetBaggageItem("batch.id", batchID)
-	span.LogFields(opentracing_log.String("batch.id", batchID))
+	span.LogFields(opentracinglog.String("batch.id", batchID))
 	log.Println("Starting batch: ", batchID)
 
 	initTasks()
