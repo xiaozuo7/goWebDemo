@@ -100,7 +100,7 @@ func worker() error {
 		return err
 	}
 
-	worker := server.NewWorker(consumerTag, 0)
+	worker := server.NewWorker(consumerTag, 4)
 	errorHandler := func(err error) {
 		log.Println("错误处理:", err)
 	}
@@ -130,6 +130,7 @@ func send() error {
 		return err
 	}
 
+	eta1 := time.Now().UTC().Add(time.Second * 5)  // 延迟5秒
 	var (
 		addTask0, addTask1 tasks.Signature
 	)
@@ -145,6 +146,7 @@ func send() error {
 				{Type: "int64",
 					Value: 1},
 			},
+			ETA: &eta1,
 		}
 		addTask1 = tasks.Signature{
 			Name: "add",
