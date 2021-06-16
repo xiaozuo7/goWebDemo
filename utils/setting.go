@@ -35,8 +35,11 @@ var (
 	Bucket    string
 	EndPoint  string
 
-	Broker        string
-	ResultBackend string
+	Broker           string
+	RedisBackendHost string
+	RedisBackendPort string
+	RedisBackendAuth string
+	RedisBackendDB   int
 )
 
 func init() {
@@ -55,7 +58,7 @@ func init() {
 func LoadServer(file *ini.File) {
 	AppMode = file.Section("server").Key("AppMode").MustString("debug")
 	HttpPort = file.Section("server").Key("HttpPort").MustString(":3000")
-	JwtKey = file.Section("server").Key("JwtKey").MustString("29js10js")
+	JwtKey = file.Section("server").Key("JwtKey").MustString("")
 
 }
 
@@ -63,7 +66,7 @@ func LoadDb(file *ini.File) {
 	DbHost = file.Section("database").Key("DbHost").MustString("localhost")
 	DbPort = file.Section("database").Key("DbPort").MustString("3306")
 	DbUser = file.Section("database").Key("DbUser").MustString("root")
-	DbPassWord = file.Section("database").Key("DbPassWord").MustString("xz")
+	DbPassWord = file.Section("database").Key("DbPassWord").MustString("")
 	DbName = file.Section("database").Key("DbName").MustString("goWebDemo")
 	MaxOpenConns = file.Section("database").Key("MaxOpenConns").MustInt(128)
 	MaxIdleConns = file.Section("database").Key("MaxIdleConns").MustInt(10)
@@ -94,6 +97,8 @@ func LoadQiNiu(file *ini.File) {
 
 func LoadMachinery(file *ini.File) {
 	Broker = file.Section("machinery").Key("Broker").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
-	ResultBackend = file.Section("machinery").Key("ResultBackend").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
-
+	RedisBackendHost = file.Section("machinery").Key("RedisBackendHost").MustString("127.0.0.1:6379")
+	RedisBackendPort = file.Section("machinery").Key("RedisBackendPort").MustString("6379")
+	RedisBackendAuth = file.Section("machinery").Key("RedisBackendAuth").MustString("")
+	RedisBackendDB = file.Section("machinery").Key("RedisBackendDB").MustInt(15)
 }

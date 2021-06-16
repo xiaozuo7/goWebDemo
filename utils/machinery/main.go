@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/RichardKnop/machinery/v2"
-	amqpbackend "github.com/RichardKnop/machinery/v2/backends/amqp"
+	redisbackend "github.com/RichardKnop/machinery/v2/backends/redis"
 	amqpbroker "github.com/RichardKnop/machinery/v2/brokers/amqp"
 	"github.com/RichardKnop/machinery/v2/config"
 	"github.com/RichardKnop/machinery/v2/example/tracers"
@@ -63,8 +63,8 @@ func main() {
 func startServer() (*machinery.Server, error) {
 	cnf := &config.Config{
 		Broker:          utils.Broker,
-		DefaultQueue:    "machinery_tasks",
-		ResultBackend:   utils.ResultBackend,
+		DefaultQueue:    "machinery_task",
+		ResultBackend:   "redis://" + utils.RedisBackendAuth + "@" + utils.RedisBackendHost + ":" + utils.RedisBackendPort,
 		ResultsExpireIn: 3600,
 		AMQP: &config.AMQPConfig{
 			Exchange:      "machinery_exchange",
@@ -75,7 +75,7 @@ func startServer() (*machinery.Server, error) {
 	}
 
 	broker := amqpbroker.New(cnf)
-	backend := amqpbackend.New(cnf)
+	backend := redisbackend.NewGR(cnf, []string{utils.RedisBackendAuth + "@" + utils.RedisBackendHost + ":" + utils.RedisBackendPort}, utils.RedisBackendDB)
 	lock := eagerlock.New()
 	server := machinery.NewServer(cnf, broker, backend, lock)
 
