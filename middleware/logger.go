@@ -72,11 +72,13 @@ func Log() gin.HandlerFunc {
 		if len(c.Errors) > 0 {
 			entry.Error(c.Errors.ByType(gin.ErrorTypePrivate).String())
 		}
-		if statusCode >= 500 {
-			entry.Error()
-		} else if statusCode >= 400 {
-			entry.Warn()
-		} else {
+		if statusCode == 500 {
+			entry.Error("Unknown Error")
+		} else if statusCode == 404 {
+			entry.Warn("Page Not Found")
+		} else if statusCode == 200{
+			entry.Info("ok")
+		} else if statusCode == 403{
 			entry.Info()
 		}
 	}
