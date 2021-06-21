@@ -9,10 +9,9 @@
 6. validator+translator(√) --表单认证+中文翻译
 7. ini(√) --配置文件读取
 8. test(√) --单元测试(注意单元测试读取配置文件需要改成绝对路径) 
-9. rabbitmq
-10. etcd
-11. machinery(√) --基于分布式异步任务（broker: rabbitmq, backend: redis）
-12. bcrypt(√) --密码加密
-13. upload(√) --文件上传(接入的七牛云SDK)
-14. es
-15. cli(√) -- 构建命令行
+9. etcd
+10. machinery(√) --基于分布式异步任务（broker: rabbitmq, backend: redis）
+11. bcrypt(√) --密码加密
+12. upload(√) --文件上传(接入的七牛云SDK)
+13. es
+14. cli(√) -- 构建命令行
