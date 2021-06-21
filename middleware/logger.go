@@ -76,9 +76,7 @@ func Log() gin.HandlerFunc {
 			entry.Error("Unknown Error")
 		} else if statusCode == 404 {
 			entry.Warn("Page Not Found")
-		} else if statusCode == 200{
-			entry.Info("ok")
-		} else if statusCode == 403{
+		} else {
 			entry.Info()
 		}
 	}
