@@ -97,7 +97,7 @@ func LoadQiNiu(file *ini.File) {
 
 func LoadMachinery(file *ini.File) {
 	Broker = file.Section("machinery").Key("Broker").MustString("amqp://machinery:Cp123456@localhost:5672/go-machinery")
-	RedisBackendHost = file.Section("machinery").Key("RedisBackendHost").MustString("127.0.0.1:6379")
+	RedisBackendHost = file.Section("machinery").Key("RedisBackendHost").MustString("127.0.0.1")
 	RedisBackendPort = file.Section("machinery").Key("RedisBackendPort").MustString("6379")
 	RedisBackendAuth = file.Section("machinery").Key("RedisBackendAuth").MustString("")
 	RedisBackendDB = file.Section("machinery").Key("RedisBackendDB").MustInt(15)
