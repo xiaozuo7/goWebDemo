@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"goWebDemo/utils"
 	"goWebDemo/utils/errmsg"
-	"net/http"
+	"goWebDemo/utils/response"
 	"strings"
 )
 
@@ -62,7 +62,6 @@ func (j *JWT) ParseToken(tokenString string) (*MyClaims, error) {
 		}
 		return nil, TokenInvalid
 	}
-
 	return nil, TokenInvalid
 }
 
@@ -73,31 +72,19 @@ func JwtToken() gin.HandlerFunc {
 		tokenHeader := c.Request.Header.Get("Authorization")
 		if tokenHeader == "" {
 			code = errmsg.ErrorTokenExists
-			c.JSON(http.StatusOK, gin.H{
-				"status":  code,
-				"message": errmsg.GetErrMsg(code),
-			})
-			c.Abort()
+			response.Fail(c, code, errmsg.GetErrMsg(code), "")
 			return
 		}
 		checkToken := strings.Split(tokenHeader, " ")
 		if len(checkToken) == 0 {
 			code = errmsg.ErrorTokenType
-			c.JSON(http.StatusOK, gin.H{
-				"status":  code,
-				"message": errmsg.GetErrMsg(code),
-			})
-			c.Abort()
+			response.Fail(c, code, errmsg.GetErrMsg(code), "")
 			return
 		}
 
 		if len(checkToken) != 2 || checkToken[0] != "Bearer" {
 			code = errmsg.ErrorTokenType
-			c.JSON(http.StatusOK, gin.H{
-				"status":  code,
-				"message": errmsg.GetErrMsg(code),
-			})
-			c.Abort()
+			response.Fail(c, code, errmsg.GetErrMsg(code), "")
 			return
 		}
 
@@ -106,20 +93,10 @@ func JwtToken() gin.HandlerFunc {
 		if err != nil {
 			if err == TokenExpired {
 				code = errmsg.ErrorTokenExpired
-				c.JSON(http.StatusOK, gin.H{
-					"status":  errmsg.Error,
-					"message": errmsg.GetErrMsg(code),
-					"data":    nil,
-				})
-				c.Abort()
+				response.Fail(c, code, errmsg.GetErrMsg(code), "")
 				return
 			}
-			c.JSON(http.StatusOK, gin.H{
-				"status":  errmsg.Error,
-				"message": err.Error(),
-				"data":    nil,
-			})
-			c.Abort()
+			response.Fail(c, errmsg.Error, errmsg.GetErrMsg(errmsg.Error), "")
 			return
 		}
 		c.Set("username", claims)

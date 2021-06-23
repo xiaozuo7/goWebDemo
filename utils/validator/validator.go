@@ -1,7 +1,6 @@
 package validator
 
 import (
-	"fmt"
 	"github.com/go-playground/locales/zh_Hans_CN"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -17,7 +16,7 @@ func Validate(data interface{}) (string, int) {
 
 	err := zhTrans.RegisterDefaultTranslations(validate, trans)
 	if err != nil {
-		fmt.Println("err: ", err)
+		return err.Error(), errmsg.Error
 	}
 	validate.RegisterTagNameFunc(func(field reflect.StructField) string {
 		label := field.Tag.Get("label")

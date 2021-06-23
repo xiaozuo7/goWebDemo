@@ -73,9 +73,11 @@ func Log() gin.HandlerFunc {
 			entry.Error(c.Errors.ByType(gin.ErrorTypePrivate).String())
 		}
 		if statusCode == 500 {
-			entry.Error("Unknown Error")
+			entry.Error("服务器错误")
 		} else if statusCode == 404 {
-			entry.Warn("Page Not Found")
+			entry.Warn("页面不存在")
+		} else if statusCode == 400 {
+			entry.Warn("错误请求")
 		} else {
 			entry.Info()
 		}

@@ -6,12 +6,10 @@ import (
 	"goWebDemo/model"
 	"goWebDemo/service"
 	"goWebDemo/utils/errmsg"
+	"goWebDemo/utils/response"
 	"goWebDemo/utils/validator"
-	"net/http"
 	"strconv"
 )
-
-var code int
 
 // AddUser 新增用戶
 func AddUser(c *gin.Context) {
@@ -22,39 +20,31 @@ func AddUser(c *gin.Context) {
 
 	msg, validCode = validator.Validate(&data)
 	if validCode != errmsg.Success {
-		c.JSON(
-			http.StatusOK, gin.H{
-				"status":  validCode,
-				"message": msg,
-			},
-		)
-		c.Abort()
+		response.Fail(c, validCode, msg, "")
 		return
 	}
-
-	code = service.CheckUser(data.Username)
+	code := service.CheckUser(data.Username)
 	if code == errmsg.Success {
 		service.CreateUser(&data)
+		response.Success(c, "创建用户成功", "")
+	} else {
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
 }
 
 // GetUser 获取用户
 func GetUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	data, code := service.GetUser(id)
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"data":    data,
-		"message": errmsg.GetErrMsg(code),
-	})
+	if code != errmsg.Success {
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
+	}
+	response.Success(c, "获取用户成功", gin.H{"data": data})
 }
 
+// GetUserList 获取用户列表
 func GetUserList(c *gin.Context) {
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
@@ -71,33 +61,25 @@ func GetUserList(c *gin.Context) {
 		pageNum = 1
 	}
 	data, total := service.GetUserList(username, pageSize, pageNum)
-
-	code = errmsg.Success
-	c.JSON(
-		http.StatusOK, gin.H{
-			"status":  code,
-			"data":    data,
-			"total":   total,
-			"message": errmsg.GetErrMsg(code),
-		})
+	response.Success(c, "获取用户列表成功", gin.H{"data": data, "total": total})
 }
 
+// EditUser 编辑用户
 func EditUser(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
-	_ = c.ShouldBindJSON(&data)
+	err := c.ShouldBindJSON(&data)
+	if err != nil {
+		response.Fail(c, errmsg.Error, err.Error(), "")
+	}
 
-	code = service.CheckUpUser(id, data.Username)
-	if code == errmsg.Success {
-		service.EditUser(id, &data)
+	code := service.CheckUpUser(id, data.Username)
+	if code != errmsg.Success {
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
 	}
-	if code == errmsg.ErrorUserNameExists {
-		c.Abort()
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
+	service.EditUser(id, &data)
+	response.Success(c, "更新用户成功", "")
 
 }
 
@@ -105,11 +87,13 @@ func EditUser(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code = service.DeleteUser(id)
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
+	code := service.DeleteUser(id)
+	if code != errmsg.Success {
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
+	}
+	response.Success(c, "删除用户成功", "")
+
 }
 
 // ChangePassword 修改密码
@@ -119,21 +103,14 @@ func ChangePassword(c *gin.Context) {
 	_ = c.ShouldBindJSON(&params)
 	msg, validCode := validator.Validate(&params)
 	if validCode != errmsg.Success {
-		c.JSON(
-			http.StatusOK, gin.H{
-				"status":  validCode,
-				"message": msg,
-			},
-		)
-		c.Abort()
+		response.ErrorParam(c, validCode, msg, "")
 		return
 	}
 
-	code = service.ChangePassword(id, params.Password)
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":  code,
-		"message": errmsg.GetErrMsg(code),
-	})
-
+	code := service.ChangePassword(id, params.Password)
+	if code != errmsg.Success {
+		response.Fail(c, code, "修改密码失败", "")
+		return
+	}
+	response.Success(c, "修改密码成功", "")
 }

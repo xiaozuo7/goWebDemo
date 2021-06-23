@@ -1,8 +1,8 @@
 package errmsg
 
 const (
-	Success = 200
-	Error   = 500
+	Success    = 200
+	Error      = 500
 
 	ErrorTokenExists  = 1001
 	ErrorTokenType    = 1002
@@ -15,8 +15,8 @@ const (
 )
 
 var codeMsg = map[int]string{
-	Success: "OK",
-	Error:   "服务器错误",
+	Success:    "OK",
+	Error:      "服务器错误",
 
 	ErrorTokenExists:  "token不存在",
 	ErrorTokenType:    "token格式错误",

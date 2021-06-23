@@ -7,29 +7,22 @@ import (
 	"goWebDemo/model"
 	"goWebDemo/service"
 	"goWebDemo/utils/errmsg"
-	"net/http"
+	"goWebDemo/utils/response"
 	"time"
 )
 
 func Login(c *gin.Context) {
 	var formData model.User
-	_ = c.ShouldBindJSON(&formData)
-	var token string
 	var code int
 
+	_ = c.ShouldBindJSON(&formData)
 	formData, code = service.CheckLogin(formData.Username, formData.Password)
 	if code == errmsg.Success {
 		generateToken(c, formData)
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"status": code,
-			"data": formData.Username,
-			"id": formData.ID,
-			"message": errmsg.GetErrMsg(code),
-			"token": token,
-		})
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
 	}
-
 }
 
 func generateToken(c *gin.Context, user model.User) {
@@ -42,22 +35,10 @@ func generateToken(c *gin.Context, user model.User) {
 			Issuer:    "issuer",
 		},
 	}
-
 	token, err := j.CreateToken(claims)
-
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  errmsg.Error,
-			"message": errmsg.GetErrMsg(errmsg.Error),
-			"token":   token,
-		})
+		response.ErrorSystem(c, "未知错误，请稍后再试", "")
+		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"status": errmsg.Success,
-		"data": user.Username,
-		"id": user.ID,
-		"message": errmsg.GetErrMsg(errmsg.Success),
-		"token": token,
-	})
-	return
+	response.Success(c, "生成token成功", gin.H{"username": user.Username, "id": user.ID, "token": token})
 }
