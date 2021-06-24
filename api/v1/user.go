@@ -24,13 +24,12 @@ func AddUser(c *gin.Context) {
 		return
 	}
 	code := service.CheckUser(data.Username)
-	if code == errmsg.Success {
-		service.CreateUser(&data)
-		response.Success(c, "创建用户成功", "")
-	} else {
+	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
 	}
+	service.CreateUser(&data)
+	response.Success(c, "创建用户成功", "")
 }
 
 // GetUser 获取用户
