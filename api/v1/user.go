@@ -102,7 +102,7 @@ func ChangePassword(c *gin.Context) {
 	_ = c.ShouldBindJSON(&params)
 	msg, validCode := validator.Validate(&params)
 	if validCode != errmsg.Success {
-		response.ErrorParam(c, validCode, msg, "")
+		response.Fail(c, validCode, msg, "")
 		return
 	}
 

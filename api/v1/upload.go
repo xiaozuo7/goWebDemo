@@ -10,7 +10,7 @@ import (
 func Upload(c *gin.Context) {
 	file, fileHeader, err := c.Request.FormFile("file")
 	if err != nil || fileHeader == nil {
-		response.ErrorParam(c, errmsg.Error, "参数校验失败", "")
+		response.Fail(c, errmsg.Error, "参数校验失败", "")
 		return
 	}
 	fileSize := fileHeader.Size

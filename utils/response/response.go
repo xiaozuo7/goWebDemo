@@ -31,9 +31,3 @@ func ErrorSystem(c *gin.Context, msg string, data interface{}) {
 	ReturnJson(c, http.StatusInternalServerError, errmsg.Error, msg, data)
 	c.Abort()
 }
-
-// ErrorParam 参数校验失败 400
-func ErrorParam(c *gin.Context, dataCode int, msg string, data interface{}) {
-	ReturnJson(c, http.StatusBadRequest, dataCode, msg, data)
-	c.Abort()
-}
