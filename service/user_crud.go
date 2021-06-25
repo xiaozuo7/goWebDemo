@@ -20,6 +20,7 @@ func CheckUser(name string) (code int) {
 
 // CreateUser 创建用户
 func CreateUser(data *model.User) (code int) {
+	data.Password = model.ScryptPw(data.Password)  // 密码加密
 	err = model.Db.Create(&data).Error
 	if err != nil {
 		return errmsg.Error
@@ -49,21 +50,21 @@ func CheckLogin(username string, password string) (model.User, int) {
 	return user, errmsg.Success
 }
 
-// CheckLoginFront 前台用户校验
-//func CheckLoginFront(username string, password string) (model.User, int) {
-//	var user model.User
-//
-//	db.Where("username = ?", username).First(&user)
-//
-//	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-//	if user.ID == 0 {
-//		return user, errmsg.ErrorUserNotExists
-//	}
-//	if err != nil {
-//		return user, errmsg.ErrorPasswordInvalid
-//	}
-//	return user, errmsg.Success
-//}
+//CheckLoginFront 前台用户校验
+func CheckLoginFront(username string, password string) (model.User, int) {
+	var user model.User
+
+	model.Db.Where("username = ?", username).First(&user)
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if user.ID == 0 {
+		return user, errmsg.ErrorUserNotExists
+	}
+	if err != nil {
+		return user, errmsg.ErrorPasswordInvalid
+	}
+	return user, errmsg.Success
+}
 
 // EditUser 编辑用户
 func EditUser(id int, data *model.User) int {

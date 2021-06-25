@@ -23,15 +23,15 @@ func ScryptPw(password string) string {
 	return string(HashPw)
 }
 
-// BeforeCreate 创建前的钩子
-func (u *User) BeforeCreate(_ *gorm.DB) (err error) {
-	u.Password = ScryptPw(u.Password)
-	u.Role = 2
-	return nil
-}
-
-// BeforeUpdate 更新前的钩子
-func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
-	u.Password = ScryptPw(u.Password)
-	return nil
-}
+//// BeforeCreate 创建前的钩子
+//func (u *User) BeforeCreate(_ *gorm.DB) (err error) {
+//	u.Password = ScryptPw(u.Password)
+//	u.Role = 2
+//	return nil
+//}
+//
+//// BeforeUpdate 更新前的钩子
+//func (u *User) BeforeUpdate(_ *gorm.DB) (err error) {
+//	u.Password = ScryptPw(u.Password)
+//	return nil
+//}

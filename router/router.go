@@ -29,8 +29,7 @@ func InitRouter() {
 		router.GET("/user/:id", v1.GetUser)
 		router.GET("/users", v1.GetUserList)
 		router.POST("/user/add", v1.AddUser)
-
-
+		router.POST("/front/login", v1.LoginFront)
 
 	}
 
