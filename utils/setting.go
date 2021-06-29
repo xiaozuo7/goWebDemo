@@ -47,7 +47,7 @@ var (
 
 func init() {
 	// go test时需要用绝对路径F:\project\goWebDemo\config.ini
-	file, err := ini.Load("F:\\project\\goWebDemo\\config.ini")
+	file, err := ini.Load("config.ini")
 	if err != nil {
 		fmt.Println("配置文件读取出错,请检查文件路径是否正确", err)
 	}
