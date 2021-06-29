@@ -9,9 +9,10 @@
 6. validator+translator(√) --表单认证+中文翻译
 7. ini(√) --配置文件读取
 8. test(√) --单元测试(注意单元测试读取配置文件需要改成绝对路径) 
-9. etcd
+9. etcd(√) --分布式存储服务(K-V)，以及服务注册和服务发现
 10. machinery(√) --基于分布式异步任务（broker: rabbitmq, backend: redis）
 11. bcrypt(√) --密码加密
 12. upload(√) --文件上传(接入的七牛云SDK)
 13. es
 14. cli(√) -- 构建命令行
+15. rpc
