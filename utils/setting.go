@@ -40,11 +40,14 @@ var (
 	RedisBackendPort string
 	RedisBackendAuth string
 	RedisBackendDB   int
+
+	EtcdHosts string
+	RpcPort  string
 )
 
 func init() {
 	// go test时需要用绝对路径F:\project\goWebDemo\config.ini
-	file, err := ini.Load("config.ini")
+	file, err := ini.Load("F:\\project\\goWebDemo\\config.ini")
 	if err != nil {
 		fmt.Println("配置文件读取出错,请检查文件路径是否正确", err)
 	}
@@ -53,6 +56,7 @@ func init() {
 	LoadRedis(file)
 	LoadQiNiu(file)
 	LoadMachinery(file)
+	LoadEtcd(file)
 }
 
 func LoadServer(file *ini.File) {
@@ -101,4 +105,9 @@ func LoadMachinery(file *ini.File) {
 	RedisBackendPort = file.Section("machinery").Key("RedisBackendPort").MustString("6379")
 	RedisBackendAuth = file.Section("machinery").Key("RedisBackendAuth").MustString("")
 	RedisBackendDB = file.Section("machinery").Key("RedisBackendDB").MustInt(15)
+}
+
+func LoadEtcd(file *ini.File) {
+	EtcdHosts = file.Section("etcd").Key("EtcdHosts").MustString("127.0.0.1:2379|127.0.0.1:2380")
+	RpcPort = file.Section("etcd").Key("RpcPort").MustString("9901")
 }
