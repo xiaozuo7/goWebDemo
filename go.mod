@@ -14,6 +14,7 @@ require (
 	github.com/go-playground/validator/v10 v10.6.1
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.2.0
+	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible

@@ -11,6 +11,9 @@ import (
 	"strconv"
 )
 
+
+var code int
+
 // AddUser 新增用戶
 func AddUser(c *gin.Context) {
 	var data model.User
@@ -23,19 +26,24 @@ func AddUser(c *gin.Context) {
 		response.Fail(c, validCode, msg, "")
 		return
 	}
-	code := service.CheckUser(data.Username)
+	code = service.CheckUser(data.Username)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
 	}
-	service.CreateUser(&data)
+	code = service.CreateUser(&data)
+	if code != errmsg.Success{
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
+	}
 	response.Success(c, "创建用户成功", "")
 }
 
 // GetUser 获取用户
 func GetUser(c *gin.Context) {
+	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, code := service.GetUser(id)
+	data, code = service.GetUser(id)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
@@ -72,12 +80,16 @@ func EditUser(c *gin.Context) {
 		response.Fail(c, errmsg.Error, err.Error(), "")
 	}
 
-	code := service.CheckUpUser(id, data.Username)
+	code = service.CheckUpUser(id, data.Username)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
 	}
-	service.EditUser(id, &data)
+	code = service.EditUser(id, &data)
+	if code != errmsg.Success {
+		response.Fail(c, code, errmsg.GetErrMsg(code), "")
+		return
+	}
 	response.Success(c, "更新用户成功", "")
 
 }
@@ -86,7 +98,7 @@ func EditUser(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	code := service.DeleteUser(id)
+	code = service.DeleteUser(id)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
@@ -106,7 +118,7 @@ func ChangePassword(c *gin.Context) {
 		return
 	}
 
-	code := service.ChangePassword(id, params.Password)
+	code = service.ChangePassword(id, params.Password)
 	if code != errmsg.Success {
 		response.Fail(c, code, "修改密码失败", "")
 		return

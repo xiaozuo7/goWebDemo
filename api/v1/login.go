@@ -11,10 +11,10 @@ import (
 	"time"
 )
 
+
 // Login 后台登录
 func Login(c *gin.Context) {
 	var formData model.User
-	var code int
 
 	_ = c.ShouldBindJSON(&formData)
 	formData, code = service.CheckLogin(formData.Username, formData.Password)
@@ -49,8 +49,6 @@ func generateToken(c *gin.Context, user model.User) {
 func LoginFront(c *gin.Context) {
 	var formData model.User
 	_ = c.ShouldBindJSON(&formData)
-	var code int
-
 	formData, code = service.CheckLoginFront(formData.Username, formData.Password)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")

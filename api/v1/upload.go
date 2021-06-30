@@ -14,7 +14,8 @@ func Upload(c *gin.Context) {
 		return
 	}
 	fileSize := fileHeader.Size
-	url, code := service.UpLoadFile(file, fileSize)
+	var url string
+	url, code = service.UpLoadFile(file, fileSize)
 	if code != errmsg.Success {
 		response.Fail(c, code, errmsg.GetErrMsg(code), "")
 		return
