@@ -2,18 +2,22 @@
 
 ```
 1. 下载grpc和代码生成工具protoc-gen-go
+
 go get google.golang.org/grpc 
 go install google.golang.org/protobuf/cmd/protoc-gen-go
 go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
 go get google.golang.org/protobuf/reflect/protoreflect@v1.27.1
 
 2. 下载protocol buffers插件
+
 https://github.com/protocolbuffers/protobuf/releases
+
 # windows下载
 protoc-3.17.3-win64.zip
 解压后将bin目录protoc.exe 复制到 C:\Windows\System32中
 
 3.目录结构分为  client-server-proto
+
 # proto
 proto文件只需要撰写 *.proto文件
 撰写好后cmd运行命令自动生成Go文件（这里我的proto文件叫message.proto，注意对应修改）
@@ -22,6 +26,7 @@ protoc --go-grpc_out=. message.proto
 
 # clinet
 参照代码client\main.go, 具体移步官方库查看
+
 # server
 参照代码server\main.go, 具体移步官方库查看
 
@@ -30,7 +35,7 @@ protoc --go-grpc_out=. message.proto
 ..server\go run main.go
 ```
 
-## proto文件Demo
+### proto文件Demo
 
 ```protobuf
 syntax = "proto3"; // 声明版本
