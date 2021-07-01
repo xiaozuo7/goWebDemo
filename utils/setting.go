@@ -41,8 +41,8 @@ var (
 	RedisBackendAuth string
 	RedisBackendDB   int
 
-	EtcdHosts string
-	RpcPort  string
+	EtcdHosts string // etcd主机地址
+	RpcPort   string // rpc端口
 )
 
 func init() {
@@ -109,5 +109,5 @@ func LoadMachinery(file *ini.File) {
 
 func LoadEtcd(file *ini.File) {
 	EtcdHosts = file.Section("etcd").Key("EtcdHosts").MustString("127.0.0.1:2379|127.0.0.1:2380")
-	RpcPort = file.Section("etcd").Key("RpcPort").MustString("9901")
+	RpcPort = file.Section("etcd").Key("RpcPort").MustString(":50051")
 }
