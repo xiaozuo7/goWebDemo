@@ -13,9 +13,9 @@
 
 具体实现参考`middlerware`
 
-+ Jwt  (认证)   [jwt项目地址](https://github.com/dgrijalva/jwt-go)
-+ logrus (日志)  [logrus项目地址](https://github.com/sirupsen/logrus)
-+ cors(跨域)  [cors项目地址](https://github.com/gin-contrib/cors)
++ Jwt  (认证) `middlerware`-->`jwt.go`  [jwt项目地址](https://github.com/dgrijalva/jwt-go)
++ logrus (日志) `middlerware`-->`logger.go` [logrus项目地址](https://github.com/sirupsen/logrus)
++ cors(跨域) `middlerware`-->`cors.go` [cors项目地址](https://github.com/gin-contrib/cors)
 
 ## 三方组件
 
@@ -25,7 +25,7 @@
 
 + Validator -- 表单验证器  [Validator项目地址](github.com/go-playground/validator/v10) `utils`-->`validator`
 
-+ ini -- 配置读取  [ini项目地址](github.com/go-ini/ini) `utils`-->`setting.go`  具体Demo参考后文 `config.ini`文件放置在项目根目录即可
++ ini -- 配置读取  [ini项目地址](github.com/go-ini/ini) `utils`-->`setting.go`  具体Demo参考后文
 + etcd -- 分布式高可用强一致性k-v数据库  [etcd项目地址](https://github.com/etcd-io/etcd) `utils`-->`etcdctl`
 + machinery -- 基于分布式的异步任务 [machinery项目地址](github.com/RichardKnop/machinery/v2) `utils`-->`machinery`
 + grpc -- 远程过程调用,高性能的、开源的通用的RPC框架  [grpc项目地址](google.golang.org/grpc) `utils`-->`grpc`
