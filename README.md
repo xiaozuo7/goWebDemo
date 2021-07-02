@@ -1,6 +1,17 @@
 # goWebDemo
 基于gin的web demo练习
 
+## 项目框架简介
+
++ api --> 接口
++ middlerware --> 中间件
++ model --> 数据库表结构
++ router --> 路由
++ service --> 服务层crud等
++ test --> 单元测试
++ utils --> 三方组件
+  - main.go --> 项目启动窗口
+
 ## 数据库
 
 具体实现参考`model` --> `db.go`
@@ -13,9 +24,9 @@
 
 具体实现参考`middlerware`
 
-+ Jwt  (认证) `middlerware`-->`jwt.go`  [jwt项目地址](https://github.com/dgrijalva/jwt-go)
-+ logrus (日志) `middlerware`-->`logger.go` [logrus项目地址](https://github.com/sirupsen/logrus)
-+ cors(跨域) `middlerware`-->`cors.go` [cors项目地址](https://github.com/gin-contrib/cors)
++ Jwt  (认证) `middlerware`-->`jwt.go`               [jwt项目地址](https://github.com/dgrijalva/jwt-go)
++ logrus (日志) `middlerware`-->`logger.go`    [logrus项目地址](https://github.com/sirupsen/logrus)
++ cors(跨域) `middlerware`-->`cors.go`            [cors项目地址](https://github.com/gin-contrib/cors)
 
 ## 三方组件
 
@@ -65,7 +76,7 @@ func ScryptPw(password string) string {
 
 2. 文件上传 -- 接入的七牛云SDK
 
-实现参考`service`-->`upload_file`
+实现参考`service`-->`upload_file.go`
 
 ## 配置文件
 
