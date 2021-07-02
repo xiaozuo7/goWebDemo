@@ -32,14 +32,14 @@
 
 三方组件具体实现参考`utils`
 
-+ Redis -- 传统NoSql  [redigo项目地址](github.com/gomodule/redigo)   `utils`-->`redis_client`
++ Redis -- 传统NoSql  `utils`-->`redis_client`   [redigo项目地址](github.com/gomodule/redigo)   
 
-+ Validator -- 表单验证器  [Validator项目地址](github.com/go-playground/validator/v10) `utils`-->`validator`
++ Validator -- 表单验证器  `utils`-->`validator`  [Validator项目地址](github.com/go-playground/validator/v10) 
 
-+ ini -- 配置读取  [ini项目地址](github.com/go-ini/ini) `utils`-->`setting.go`  具体Demo参考后文
-+ etcd -- 分布式高可用强一致性k-v数据库  [etcd项目地址](https://github.com/etcd-io/etcd) `utils`-->`etcdctl`
-+ machinery -- 基于分布式的异步任务 [machinery项目地址](github.com/RichardKnop/machinery/v2) `utils`-->`machinery`
-+ grpc -- 远程过程调用,高性能的、开源的通用的RPC框架  [grpc项目地址](google.golang.org/grpc) `utils`-->`grpc`
++ ini -- 配置读取(具体Demo参考后文)     `utils`-->`setting.go`  [ini项目地址](github.com/go-ini/ini)
++ etcd -- 分布式高可用强一致性k-v数据库  `utils`-->`etcdctl`  [etcd项目地址](https://github.com/etcd-io/etcd) 
++ machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2) 
++ grpc -- 远程过程调用,高性能的、开源的通用的RPC框架 `utils`-->`grpc`  [grpc项目地址](google.golang.org/grpc) 
 
 ## 单元测试
 
