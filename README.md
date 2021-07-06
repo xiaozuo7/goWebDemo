@@ -1,5 +1,5 @@
 # goWebDemo
-基于gin的web demo练习
+基于gin的web implement
 
 ## 项目框架简介
 
