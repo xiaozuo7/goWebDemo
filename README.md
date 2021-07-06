@@ -80,7 +80,7 @@ func ScryptPw(password string) string {
 
 ## 配置文件
 
-项目下创建`config.ini`
+项目下创建`config.ini`, 具体配置参数含义请查看`utils`-->`settting.go`
 
 ```ini
 [server]
