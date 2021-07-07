@@ -12,8 +12,8 @@ type User struct {
 	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 }
 
-// ScryptPw 密码加密
-func ScryptPw(password string) string {
+// BcryptPw 密码加密
+func BcryptPw(password string) string {
 	const cost = 10
 	HashPw, err := bcrypt.GenerateFromPassword([]byte(password), cost)
 	if err != nil {

@@ -20,7 +20,7 @@ func CheckUser(name string) (code int) {
 
 // CreateUser 创建用户
 func CreateUser(data *model.User) (code int) {
-	data.Password = model.ScryptPw(data.Password)  // 密码加密
+	data.Password = model.BcryptPw(data.Password)  // 密码加密
 	err = model.Db.Create(&data).Error
 	if err != nil {
 		return errmsg.Error
@@ -132,7 +132,7 @@ func DeleteUser(id int) int {
 // ChangePassword 修改密码
 func ChangePassword(id int, password string) int {
 	var user model.User
-	hashPassword := model.ScryptPw(password)
+	hashPassword := model.BcryptPw(password)
 	//var maps = make(map[string]interface{})
 	//maps["password"] = hashPassword
 	err = model.Db.Model(&user).Select("password").Where("id = ?", id).Update("password", hashPassword).Error

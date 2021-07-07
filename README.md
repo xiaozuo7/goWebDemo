@@ -64,7 +64,7 @@
 
 ```go
 // BcryptPw 密码加密
-func ScryptPw(password string) string {
+func BcryptPw(password string) string {
    const cost = 10
    HashPw, err := bcrypt.GenerateFromPassword([]byte(password), cost)
    if err != nil {
@@ -73,6 +73,11 @@ func ScryptPw(password string) string {
    return string(HashPw)
 }
 ```
+```go
+// 密码校对
+PasswordErr := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+```
+
 
 2. 文件上传 -- 接入的七牛云SDK
 
