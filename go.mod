@@ -14,7 +14,6 @@ require (
 	github.com/go-playground/validator/v10 v10.6.1
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.2.0
-	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
@@ -32,11 +31,9 @@ require (
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
-	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/genproto v0.0.0-20210630183607-d20f26d13c79 // indirect
-	google.golang.org/grpc v1.39.0 // indirect
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0 // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	google.golang.org/grpc v1.39.0
+	google.golang.org/protobuf v1.27.1
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gorm.io/driver/mysql v1.1.0
 	gorm.io/gorm v1.21.10
