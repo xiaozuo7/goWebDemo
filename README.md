@@ -140,7 +140,7 @@ RpcPort = :50051
 + mysql
 
 ```shell
-sudo docker run --name {$databases_alias} -d -p 3306:3306 -v /home/{$user}/docker_volume/mysql/:/var/lib/mysql -e MYSQL_ROOT_PASSWORD={$pswd}   # databases_alias为数据库别名、user为本机用户名、pswd为数据库密码 
+sudo docker run --name {$databases_alias} -d -p 3306:3306 -v /home/{$user}/docker_volume/mysql/:/var/lib/mysql -e MYSQL_ROOT_PASSWORD={$pswd} mysql:5.7   # databases_alias为数据库别名、user为本机用户名、pswd为数据库密码 
 ```
 
 + redis
