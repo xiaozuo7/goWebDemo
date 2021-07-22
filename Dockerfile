@@ -16,3 +16,5 @@ COPY ./ ./
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=${GOARCH} go build -o goWebDemo -ldflags "${LDFLAGS}" main.go
 
 EXPOSE 3000
+
+ENTRYPOINT ["/goWebDemo"]
