@@ -1,4 +1,4 @@
-FROM golang:1.15.8 as mod
+FROM golang:1.16 as mod
 LABEL stage=mod
 ARG GOPROXY=https://goproxy.cn,https://mirrors.aliyun.com/goproxy/,https://goproxy.io,direct
 WORKDIR /root/app/
