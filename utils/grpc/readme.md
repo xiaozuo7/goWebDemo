@@ -1,6 +1,6 @@
 ## GRPC使用指南
 
-1. 下载grpc和代码生成工具protoc-gen-go
+1.下载grpc和代码生成工具protoc-gen-go
 
 ```shell
 go get google.golang.org/grpc 
@@ -11,7 +11,7 @@ go get google.golang.org/protobuf/reflect/protoreflect@v1.27.1
 
 
 
-2. 下载protocol buffers插件
+2.下载protocol buffers插件
 
 https://github.com/protocolbuffers/protobuf/releases
 
@@ -48,7 +48,7 @@ proto文件只需要撰写 *.proto文件
 
 参照代码server\main.go, 具体移步官方库查看
 
-4. 分别运行客户端和服务端
+4.分别运行客户端和服务端
 
   ```shell
   > ..clinet\go run main.go
