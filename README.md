@@ -33,10 +33,9 @@
 三方组件具体实现参考`utils`
 
 + Redis -- 传统NoSql  `utils`-->`redis_client`   [redigo项目地址](github.com/gomodule/redigo)
-
 + Validator -- 表单验证器  `utils`-->`validator`  [Validator项目地址](github.com/go-playground/validator/v10)
-
-+ ini -- 配置读取(具体Demo参考后文)     `utils`-->`setting.go`  [ini项目地址](github.com/go-ini/ini)
++ ~~ini -- 配置读取~~
++ viper -- 配置读取(参考根目录config.yml) `utils`-->`setting.go` [viper项目地址](https://github.com/spf13/viper)
 + etcd -- 分布式高可用强一致性k-v数据库  `utils`-->`etcdctl`  [etcd项目地址](https://github.com/etcd-io/etcd)
 + machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2)
 + grpc -- 远程过程调用,高性能的、开源的通用的RPC框架 `utils`-->`grpc`  [grpc项目地址](google.golang.org/grpc)
@@ -48,11 +47,9 @@
 >  注意单元测试读取配置文件时需要改成绝对路径 请在`utils` -->`setting.go`中修改
 
 ```go
-   // go test时需要用绝对路径F:\project\goWebDemo\config.ini
-   file, err := ini.Load("config.ini")
-   if err != nil {
-      fmt.Println("配置文件读取出错,请检查文件路径是否正确", err)
-   }
+   // go test时需要用绝对路径，比如
+    viper.AddConfigPath("F://project//goWebDemo")
+
 ```
 
 + etcd存储测试 `etcd_test.go`
@@ -83,57 +80,6 @@ PasswordErr := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(passw
 
 实现参考`service`-->`upload_file.go`
 
-## 配置文件
-
-项目下创建`config.ini`, 具体配置参数含义请查看`utils`-->`settting.go`
-
-```ini
-[server]
-# debug 开发模式，release 生产模式
-AppMode = debug
-HttpPort = :3000
-JwtKey = 
-
-[database]
-Db = mysql
-DbHost = 127.0.0.1
-DbPort = 3306
-DbUser = root
-DbPassWord = 
-DbName = 
-MaxOpenConns = 128
-MaxIdleConns = 10
-ConnMaxLifetime = 10
-
-[redis]
-RedisHost = 127.0.0.1
-RedisPort = 6379
-RedisAuth = 
-RedisDb = 1
-MaxIdle = 10
-MaxActive = 1000
-IdleTimeout = 60
-ConnFailRetryTimes = 3
-ReConnectInterval = 1
-
-[qiniu]
-AccessKey = 
-SecretKey = 
-Bucket = 
-EndPoint = 
-
-
-[machinery]
-Broker = 
-RedisBackendHost = 127.0.0.1
-RedisBackendPort = 6379
-RedisBackendAuth = 
-RedisBackendDB = 15
-
-[etcd]
-EtcdHosts = 127.0.0.1:2379|127.0.0.1:2380
-RpcPort = :50051
-```
 
 ## Docker挂载
 
