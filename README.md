@@ -35,7 +35,7 @@
 + Redis -- 传统NoSql  `utils`-->`redis_client`   [redigo项目地址](github.com/gomodule/redigo)
 + Validator -- 表单验证器  `utils`-->`validator`  [Validator项目地址](github.com/go-playground/validator/v10)
 + ~~ini -- 配置读取~~
-+ viper -- 配置读取(参考根目录config.yml) `utils`-->`setting.go` [viper项目地址](https://github.com/spf13/viper)
++ viper -- 配置读取(具体参考后面文档) `utils`-->`setting.go` [viper项目地址](https://github.com/spf13/viper)
 + etcd -- 分布式高可用强一致性k-v数据库  `utils`-->`etcdctl`  [etcd项目地址](https://github.com/etcd-io/etcd)
 + machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2)
 + grpc -- 远程过程调用,高性能的、开源的通用的RPC框架 `utils`-->`grpc`  [grpc项目地址](google.golang.org/grpc)
@@ -121,7 +121,54 @@ sudo docker run --name {$databases_alias} -d -p 6379:6379 -v /home/{$user}/docke
   --log-outputs stderr
 ```
 
+## 配置文件
+
+根目录创建`config.yml`文件, 配置参数如下
+```yaml
+Server:
+  # debug 开发模式，release 生产模式
+  AppMode: "debug"
+  HttpPort: ":3000"
+  JwtKey: ""
+
+Database:
+  DbType: "mysql"
+  Host: "127.0.0.1"
+  Port: 3306
+  User: "root"
+  PassWord: ""
+  Name: ""
+  MaxOpenConns: 128
+  MaxIdleConns: 10
+  ConnMaxLifetime: 10
+
+Redis:
+  Host: "127.0.0.1"
+  Port: 6379
+  Auth: ""
+  Db: 1
+  MaxIdle: 10
+  MaxActive: 1000
+  IdleTimeout: 60
+  ConnFailRetryTimes: 3
+  ReConnectInterval: 1
+
+Qiniu:
+  AccessKey: ""
+  SecretKey: ""
+  Bucket: ""
+  EndPoint: ""
 
 
+Machinery:
+  Broker: ""
+  RedisBackendHost: "127.0.0.1"
+  RedisBackendPort: 6379
+  RedisBackendAuth: ""
+  RedisBackendDB: 
 
+Etcd:
+  EtcdHosts: "127.0.0.1:2379|127.0.0.1:2380"
+  RpcPort: ":50051"
 
+```
