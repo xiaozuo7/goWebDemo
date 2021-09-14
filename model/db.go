@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -23,11 +23,11 @@ type BaseModel struct {
 
 func InitDb() {
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		utils.DbUser,
-		utils.DbPassWord,
-		utils.DbHost,
-		utils.DbPort,
-		utils.DbName)
+		viper.GetString("Database.User"),
+		viper.GetString("Database.PassWord"),
+		viper.GetString("Database.Host"),
+		viper.GetString("Database.Port"),
+		viper.GetString("Database.Name"))
 	Db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
 		// 日志模式
 		Logger: logger.Default.LogMode(logger.Silent),
@@ -51,11 +51,11 @@ func InitDb() {
 
 	sqlDB, _ := Db.DB()
 	// 设置连接池中的最大闲置连接数
-	sqlDB.SetMaxIdleConns(utils.MaxIdleConns)
+	sqlDB.SetMaxIdleConns(viper.GetInt("Database.MaxIdleConns"))
 
 	// 设置数据库的最大连接数量
-	sqlDB.SetMaxOpenConns(utils.MaxOpenConns)
+	sqlDB.SetMaxOpenConns(viper.GetInt("Database.MaxOpenConns"))
 
 	// 设置连接的最大可复用时间。
-	sqlDB.SetConnMaxLifetime(utils.ConnMaxLifetime)
+	sqlDB.SetConnMaxLifetime(viper.GetDuration("Database.ConnMaxLifetime"))
 }

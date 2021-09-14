@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	pb "goWebDemo/utils/grpc/proto"
 	"log"
 	"os"
@@ -12,13 +12,13 @@ import (
 )
 
 const (
-	host = "localhost"
+	host        = "localhost"
 	defaultName = "world"
 )
 
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(host + utils.RpcPort, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(host+viper.GetString("Etcd.RpcPort"), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

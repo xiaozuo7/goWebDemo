@@ -3,7 +3,7 @@ package redis_client
 import (
 	"fmt"
 	"github.com/gomodule/redigo/redis"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	"time"
 )
 
@@ -12,24 +12,24 @@ var redisPool *redis.Pool
 // InitRedis 初始化redis
 func InitRedis() *redis.Pool {
 	redisPool = &redis.Pool{
-		MaxIdle:     utils.MaxIdle,
-		MaxActive:   utils.MaxActive,
-		IdleTimeout: utils.IdleTimeout,
+		MaxIdle:     viper.GetInt("Redis.MaxIdle"),
+		MaxActive:   viper.GetInt("Redis.MaxActive"),
+		IdleTimeout: viper.GetDuration("Redis.IdleTimeout"),
 		Dial: func() (redis.Conn, error) {
-			conn, err := redis.Dial("tcp", utils.RedisHost+":"+utils.RedisPort)
+			conn, err := redis.Dial("tcp", viper.GetString("Redis.Host")+":"+viper.GetString("Redis.Port"))
 			if err != nil {
 				fmt.Println("初始化redis失败，请检查参数是否正确: ", err)
 				return nil, err
 			}
 
-			auth := utils.RedisAuth
+			auth := viper.GetString("Redis.Auth")
 			if len(auth) >= 1 {
 				if _, err := conn.Do("AUTH", auth); err != nil {
 					_ = conn.Close()
 					fmt.Println("Redis Auth 鉴权失败，密码错误", err)
 				}
 			}
-			_, _ = conn.Do("select", utils.RedisDb)
+			_, _ = conn.Do("select", viper.GetString("Redis.Db"))
 			return conn, err
 		},
 	}
@@ -38,7 +38,7 @@ func InitRedis() *redis.Pool {
 
 // GetOneRedisClient 从连接池拿连接
 func GetOneRedisClient() *RedisClient {
-	maxRetryTimes := utils.ConnFailRetryTimes
+	maxRetryTimes := viper.GetInt("Redis.ConnFailRetryTimes")
 	var oneConn redis.Conn
 	for i := 1; i <= maxRetryTimes; i++ {
 		oneConn = redisPool.Get()
@@ -47,7 +47,7 @@ func GetOneRedisClient() *RedisClient {
 				fmt.Println("Redis 从连接池获取一个连接失败，超过最大重试次数")
 				return nil
 			}
-			time.Sleep(utils.ReConnectInterval)
+			time.Sleep(viper.GetDuration("Redis.ReConnectInterval"))
 		} else {
 			break
 		}

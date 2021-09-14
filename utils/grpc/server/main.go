@@ -2,15 +2,13 @@ package main
 
 import (
 	"context"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	"log"
 	"net"
 
 	pb "goWebDemo/utils/grpc/proto"
 	"google.golang.org/grpc"
 )
-
-
 
 // server is used to implement message.GreeterServer.
 type server struct {
@@ -24,7 +22,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 }
 
 func main() {
-	lis, err := net.Listen("tcp", utils.RpcPort)
+	lis, err := net.Listen("tcp", viper.GetString("Etcd.RpcPort"))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

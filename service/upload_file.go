@@ -4,15 +4,15 @@ import (
 	"context"
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/qiniu/go-sdk/v7/storage"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	"goWebDemo/utils/errmsg"
 	"mime/multipart"
 )
 
-var AccessKey = utils.AccessKey
-var SecretKey = utils.SecretKey
-var Bucket = utils.Bucket
-var ImgUrl = utils.EndPoint
+var AccessKey = viper.GetString("Qiniu.AccessKey")
+var SecretKey = viper.GetString("Qiniu.SecretKey")
+var Bucket = viper.GetString("Qiniu.Bucket")
+var EndPoint = viper.GetString("Qiniu.EndPoint")
 
 func UpLoadFile(file multipart.File, filSize int64) (string, int) {
 	putPolicy := storage.PutPolicy{
@@ -36,6 +36,6 @@ func UpLoadFile(file multipart.File, filSize int64) (string, int) {
 	if err != nil {
 		return "", errmsg.Error
 	}
-	url := ImgUrl + ret.Key
+	url := EndPoint + ret.Key
 	return url, errmsg.Success
 }

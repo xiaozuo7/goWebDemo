@@ -2,13 +2,13 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	v1 "goWebDemo/api/v1"
 	"goWebDemo/middleware"
-	"goWebDemo/utils"
 )
 
 func InitRouter() {
-	gin.SetMode(utils.AppMode)
+	gin.SetMode(viper.GetString("Server.AppMode"))
 	r := gin.New()
 	r.Use(middleware.Log())
 	r.Use(gin.Recovery())
@@ -33,6 +33,6 @@ func InitRouter() {
 
 	}
 
-	_ = r.Run(utils.HttpPort)
+	_ = r.Run(viper.GetString("Server.HttpPort"))
 
 }

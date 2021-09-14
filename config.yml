@@ -1,0 +1,45 @@
+Server:
+  # debug 开发模式，release 生产模式
+  AppMode: "debug"
+  HttpPort: ":3000"
+  JwtKey: ""
+
+Database:
+  DbType: "mysql"
+  Host: "127.0.0.1"
+  Port: 3306
+  User: "root"
+  PassWord: ""
+  Name: ""
+  MaxOpenConns: 128
+  MaxIdleConns: 10
+  ConnMaxLifetime: 10
+
+Redis:
+  Host: "127.0.0.1"
+  Port: 6379
+  Auth: ""
+  Db: 1
+  MaxIdle: 10
+  MaxActive: 1000
+  IdleTimeout: 60
+  ConnFailRetryTimes: 3
+  ReConnectInterval: 1
+
+Qiniu:
+  AccessKey: ""
+  SecretKey: ""
+  Bucket: ""
+  EndPoint: ""
+
+
+Machinery:
+  Broker: ""
+  RedisBackendHost: "127.0.0.1"
+  RedisBackendPort: 6379
+  RedisBackendAuth: ""
+  RedisBackendDB: 15
+
+Etcd:
+  EtcdHosts: "127.0.0.1:2379|127.0.0.1:2380"
+  RpcPort: ":50051"

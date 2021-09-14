@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"goWebDemo/utils"
+	"github.com/spf13/viper"
 	"goWebDemo/utils/errmsg"
 	"goWebDemo/utils/response"
 	"strings"
@@ -15,7 +15,7 @@ type JWT struct {
 }
 
 func NewJWT() *JWT {
-	return &JWT{[]byte(utils.JwtKey)}
+	return &JWT{[]byte(viper.GetString("Server.JwtKey"))}
 }
 
 type MyClaims struct {

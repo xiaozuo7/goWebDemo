@@ -13,8 +13,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/opentracing/opentracing-go"
 	opentracinglog "github.com/opentracing/opentracing-go/log"
+	"github.com/spf13/viper"
 	"github.com/urfave/cli"
-	"goWebDemo/utils"
 	"goWebDemo/utils/machinery/exampletasks"
 	"log"
 	"os"
@@ -62,9 +62,10 @@ func main() {
 // 启动服务
 func startServer() (*machinery.Server, error) {
 	cnf := &config.Config{
-		Broker:          utils.Broker,
-		DefaultQueue:    "machinery_task",
-		ResultBackend:   "redis://" + utils.RedisBackendAuth + "@" + utils.RedisBackendHost + ":" + utils.RedisBackendPort,
+		Broker:       viper.GetString("Machinery.Broker"),
+		DefaultQueue: "machinery_task",
+		ResultBackend: "redis://" + viper.GetString("Machinery.RedisBackendAuth") + "@" +
+			viper.GetString("Machinery.RedisBackendHost") + ":" + viper.GetString("Machinery.RedisBackendPort"),
 		ResultsExpireIn: 3600,
 		AMQP: &config.AMQPConfig{
 			Exchange:      "machinery_exchange",
@@ -75,7 +76,8 @@ func startServer() (*machinery.Server, error) {
 	}
 
 	broker := amqpbroker.New(cnf)
-	backend := redisbackend.NewGR(cnf, []string{utils.RedisBackendAuth + "@" + utils.RedisBackendHost + ":" + utils.RedisBackendPort}, utils.RedisBackendDB)
+	backend := redisbackend.NewGR(cnf, []string{viper.GetString("Machinery.RedisBackendAuth") + "@" +
+		viper.GetString("Machinery.RedisBackendHost") + ":" + viper.GetString("Machinery.RedisBackendPort")}, viper.GetInt("Machinery.RedisBackendDB"))
 	lock := eagerlock.New()
 	server := machinery.NewServer(cnf, broker, backend, lock)
 
@@ -130,7 +132,7 @@ func send() error {
 		return err
 	}
 
-	eta1 := time.Now().UTC().Add(time.Second * 5)  // 延迟5秒
+	eta1 := time.Now().UTC().Add(time.Second * 5) // 延迟5秒
 	var (
 		addTask0, addTask1 tasks.Signature
 	)
