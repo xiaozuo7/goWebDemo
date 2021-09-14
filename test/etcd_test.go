@@ -3,6 +3,7 @@ package test
 import (
 	"context"
 	"fmt"
+	"goWebDemo/utils"
 	"goWebDemo/utils/etcdctl"
 	"testing"
 	"time"
@@ -10,6 +11,7 @@ import (
 
 //  Etcd k-v存储测试
 func TestEtcdGet(t *testing.T) {
+	utils.LoadConfig()
 	etcdctl.InitEtcd()
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()

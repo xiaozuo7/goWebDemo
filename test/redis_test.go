@@ -2,12 +2,14 @@ package test
 
 import (
 	"fmt"
+	"goWebDemo/utils"
 	"goWebDemo/utils/redis_client"
 	"testing"
 )
 
 //  hash 键、值
 func TestRedisHashKey(t *testing.T) {
+	utils.LoadConfig()
 	redis_client.InitRedis()
 	redisClient := redis_client.GetOneRedisClient()
 	defer redisClient.ReleaseOneRedisClient()
