@@ -8,23 +8,22 @@ import (
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"os"
-	"time"
 )
 
 var Db *gorm.DB
 var err error
 
-type BaseModel struct {
-	ID        uint           `gorm:"primarykey" json:"id"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
-}
+//type BaseModel struct {
+//	ID        uint           `gorm:"primarykey" json:"id"`
+//	CreatedAt time.Time      `json:"created_at"`
+//	UpdatedAt time.Time      `json:"updated_at"`
+//	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+//}
 
 func InitDb() {
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		viper.GetString("Database.User"),
-		viper.GetString("Database.PassWord"),
+		viper.GetString("Database.Password"),
 		viper.GetString("Database.Host"),
 		viper.GetString("Database.Port"),
 		viper.GetString("Database.Name"))
@@ -46,9 +45,6 @@ func InitDb() {
 		os.Exit(1)
 	}
 
-	// 迁移数据表
-	//_ = Db.AutoMigrate(&User{})
-
 	sqlDB, _ := Db.DB()
 	// 设置连接池中的最大闲置连接数
 	sqlDB.SetMaxIdleConns(viper.GetInt("Database.MaxIdleConns"))
@@ -58,4 +54,5 @@ func InitDb() {
 
 	// 设置连接的最大可复用时间。
 	sqlDB.SetConnMaxLifetime(viper.GetDuration("Database.ConnMaxLifetime"))
+
 }
