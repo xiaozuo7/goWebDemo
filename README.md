@@ -34,7 +34,6 @@
 
 + Redis -- 传统NoSql  `utils`-->`redis_client`   [redigo项目地址](github.com/gomodule/redigo)
 + Validator -- 表单验证器  `utils`-->`validator`  [Validator项目地址](github.com/go-playground/validator/v10)
-+ ~~ini -- 配置读取~~
 + viper -- 配置读取(具体参考后面文档) `utils`-->`setting.go` [viper项目地址](https://github.com/spf13/viper)
 + etcd -- 分布式高可用强一致性k-v数据库  `utils`-->`etcdctl`  [etcd项目地址](https://github.com/etcd-io/etcd)
 + machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2)
