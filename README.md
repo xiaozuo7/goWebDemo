@@ -36,7 +36,7 @@
 + Validator -- 表单验证器  `utils`-->`validator`  [Validator项目地址](github.com/go-playground/validator/v10)
 + Viper -- 配置读取(具体参考后面文档) `utils`-->`setting.go` [viper项目地址](https://github.com/spf13/viper)
 + etcd -- 分布式高可用强一致性k-v数据库  `utils`-->`etcdctl`  [etcd项目地址](https://github.com/etcd-io/etcd)
-+ machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2)
++ Machinery -- 基于分布式的异步任务     `utils`-->`machinery` [machinery项目地址](github.com/RichardKnop/machinery/v2)
 + grpc -- 远程过程调用,高性能的、开源的通用的RPC框架 `utils`-->`grpc`  [grpc项目地址](google.golang.org/grpc)
 
 ## 单元测试
