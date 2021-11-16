@@ -22,7 +22,6 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=${GOARCH} \
 FROM alpine:3.13.5
 
 COPY --from=builder /root/goWebDemo /goWebDemo
-COPY --from=builder /root/goWebDemo/config /config
 
 ENV TZ Asia/Shanghai
 
